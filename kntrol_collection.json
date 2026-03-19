@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "Kntrol API - Practice",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "https://jsonplaceholder.typicode.com/posts/1"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Status is 200', function () {",
+            "  pm.response.to.have.status(200);",
+            "});",
+            "pm.test('Response has id', function () {",
+            "  var json = pm.response.json();",
+            "  pm.expect(json).to.have.property('id');",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Get Partner Profile",
+      "request": {
+        "method": "GET",
+        "url": "https://jsonplaceholder.typicode.com/users/1"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Status is 200', function () {",
+            "  pm.response.to.have.status(200);",
+            "});",
+            "pm.test('Partner has name', function () {",
+            "  var json = pm.response.json();",
+            "  pm.expect(json).to.have.property('name');",
+            "});",
+            "pm.test('Partner has email', function () {",
+            "  var json = pm.response.json();",
+            "  pm.expect(json).to.have.property('email');",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Create Record (POST)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Test Entry\", \"body\": \"QA automation test\", \"userId\": 1}"
+        },
+        "url": "https://jsonplaceholder.typicode.com/posts"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Status is 201', function () {",
+            "  pm.response.to.have.status(201);",
+            "});",
+            "pm.test('Response has id', function () {",
+            "  var json = pm.response.json();",
+            "  pm.expect(json).to.have.property('id');",
+            "});"
+          ]
+        }
+      }]
+    }
+  ]
+}
